@@ -13,7 +13,7 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -52,15 +52,19 @@ function Basic() {
   const [password, setPassword] = useState('');
   const error = useSelector(state => state.user.error);
   const username = useSelector(state => state.user.username);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/dashboard");
+  }, [isLoggedIn])
 
 
   async function authorize(e) {
     e.preventDefault();
     await dispatch(auth({ login, password }))
-    navigate("/dashboard");
   }
 
   return (
