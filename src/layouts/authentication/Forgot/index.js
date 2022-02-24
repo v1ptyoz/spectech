@@ -40,6 +40,7 @@ import { useNavigate } from "react-router";
 function Forgot() {
   const [login, setLogin] = useState('');
   const [code, setCode] = useState('');
+  const [wrongCode, setWrongCode] = useState();
   const [sended, setSended] = useState(false);
   const userCode = useSelector(state => state.user.code);
   const error = useSelector(state => state.user.error);
@@ -53,10 +54,10 @@ function Forgot() {
 
   async function submitCode(e) {
     e.preventDefault();
-    if (code === "111111") {
+    if (code === "11111") {
       navigate("/authentication/sign-in");
     } else {
-      dispatch({ type: "SET_ERROR", payload: "Неверный код" })
+      setWrongCode("Неверный код");
     }
 
   }
@@ -83,6 +84,7 @@ function Forgot() {
               </MDInput>
             </MDBox>}
             {error && <Typography sx={{ color: "red", fontSize: "13px", textAlign: "center" }}>{error}</Typography>}
+            {wrongCode && <Typography sx={{ color: "red", fontSize: "13px", textAlign: "center" }}>{wrongCode}</Typography>}
             <MDBox mt={2} mb={1}>
               {!sended && <MDButton variant="gradient" color="info" fullWidth onClick={() => checkPhone(login)}>
                 Отправить смс
