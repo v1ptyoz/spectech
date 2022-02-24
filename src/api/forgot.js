@@ -11,7 +11,7 @@ export function ForgotPassword({ login }) {
       const { data } = await axios("../users.json");
       data.forEach(user => {
         if (user.phone === login) {
-          dispatch(SetCode({login, code: '111111'}))
+          dispatch(SetCode({login, code: '11111'}))
           isFounded = true;
         }
       })
